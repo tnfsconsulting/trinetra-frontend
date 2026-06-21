@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Trinetra Consulting Pvt. Ltd. | Defence AI</title>
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Three.js for 3D Graphics -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <!-- GSAP for 3D Interaction and Smooth Scroll Animations -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+
+  <style>
+    body {
+      background-color: #030712;
+      color: #F9FAFB;
+      overflow-x: hidden;
+    }
+    /* Fixed 3D Canvas Container */
+    #canvas-container {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      z-index: 0;
+      pointer-events: none; /* Allows interacting with text layers underneath */
+    }
+    .content-section {
+      position: relative;
+      z-index: 10;
+    }
+    /* Smooth interactive drop menu transitions */
+    .dropdown-menu {
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(8px);
+      transition: all 0.2s cubic-bezier(0.25, 1, 0.5, 1);
+    }
+    .group:hover .dropdown-menu {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- 3D INTERACTIVE CANVAS BACKGROUND -->
+  <div id="canvas-container"></div>
+
+  <!-- HEADER -->
+  <header class="fixed top-0 left-0 w-full h-20 border-b border-[#1F2937]/50 bg-[#030712]/70 backdrop-blur-md z-50 px-6 lg:px-16 flex items-center justify-between">
+    <div class="flex items-center gap-2">
+      <div class="w-3 h-3 rounded-full bg-[#06B6D4] animate-pulse"></div>
+      <span class="text-xl font-bold tracking-wider text-white">TRINETRA</span>
+    </div>
+    
+    <!-- UPDATED EXTENDED B2B NAVIGATION SYSTEM -->
+    <nav class="hidden xl:flex items-center gap-6 text-xs font-semibold uppercase tracking-wider text-[#9CA3AF]">
+      <a href="#hero" class="text-[#06B6D4] hover:text-white transition">Home</a>
+      <a href="#about" class="hover:text-white transition">About Us</a>
+      
+      <!-- SERVICES NESTED DROPDOWN SYSTEM -->
+      <div class="relative group py-2">
+        <button class="hover:text-white transition flex items-center gap-1 uppercase outline-none">
+          Services <span class="text-[9px] opacity-60">▼</span>
+        </button>
+        <div class="dropdown-menu absolute left-0 mt-2 w-60 bg-[#0B132B]/95 border border-[#1F2937] rounded-xl p-2 backdrop-blur-xl shadow-2xl">
+          <a href="#pillars" class="block px-4 py-2.5 rounded-lg hover:bg-white/5 text-slate-300 hover:text-white transition">Defence AI Solutions</a>
+          <a href="#other-industries" class="block px-4 py-2.5 rounded-lg hover:bg-white/5 text-slate-300 hover:text-white transition">Other Industry Solutions</a>
+        </div>
+      </div>
+
+      <a href="#blog" class="hover:text-white transition">Blog</a>
+      <a href="#news" class="hover:text-white transition">Defence News</a>
+      <a href="#cases" class="hover:text-white transition">Case Studies</a>
+      <a href="#contact" class="hover:text-white transition">Contact Us</a>
+    </nav>
+    
+    <button class="bg-[#06B6D4] text-[#030712] px-6 py-2.5 rounded-md font-medium text-sm hover:bg-cyan-400 transition shadow-[0_0_15px_rgba(6,182,212,0.4)]">
+      Secure Link
+    </button>
+  </header>
+
+  <!-- HERO SECTION -->
+  <section id="hero" class="content-section min-h-screen max-w-7xl mx-auto px-8 md:px-20 flex items-center pt-20">
+    <div class="max-w-2xl space-y-6">
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-[#4D7C0F]/40 bg-[#4D7C0F]/10 text-xs font-semibold tracking-widest text-[#A3E635] uppercase">
+        <span class="w-1.5 h-1.5 rounded-full bg-[#4D7C0F] animate-ping"></span>
+        Defence AI Core Active
+      </div>
+      <h1 class="hero-text text-4xl md:text-6xl font-bold leading-[1.15] text-white">
+        Next-Gen AI Solutions for <span class="text-transparent bg-clip-text bg-gradient-to-r from-[#06B6D4] to-[#4D7C0F]">Strategic Defence</span> & Enterprise Operations
+      </h1>
+      <p class="hero-text text-[#9CA3AF] text-lg max-w-xl leading-relaxed">
+        Built upon the tactical architecture of the <span class="text-white font-semibold">Shastra Decision Engine</span> to anchor mission-critical operational governance and predictive data streams across critical landscapes[cite: 1].
+      </p>
+      <div class="hero-text flex items-center gap-4 pt-4">
+        <a href="#pillars" class="bg-[#4D7C0F] hover:bg-emerald-700 text-white transition px-6 py-3 rounded-md font-medium text-sm shadow-[0_0_15px_rgba(77,124,15,0.4)][cite: 1]">
+          Explore Defence Offerings[cite: 1]
+        </a>
+        <a href="#ecosystem" class="border border-[#1F2937] bg-[#030712]/40 backdrop-blur-sm hover:bg-white/5 transition px-6 py-3 rounded-md font-medium text-sm text-[#9CA3AF] hover:text-white[cite: 1]">
+          Commercial Frameworks[cite: 1]
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- DUAL PILLARS SECTION -->
+  <section id="pillars" class="content-section min-h-screen max-w-7xl mx-auto px-8 md:px-20 py-32 flex flex-col justify-center space-y-16">
+    <div class="space-y-3 max-w-xl">
+      <p class="text-xs font-semibold tracking-widest text-[#06B6D4] uppercase[cite: 1]">Core Architectures[cite: 1]</p>
+      <h2 class="text-3xl md:text-4xl font-bold text-white">Dual-Track Operational Capabilities[cite: 1]</h2>
+      <p class="text-[#9CA3AF] text-sm">We provide highly specialized AI capability pipelines divided strictly between strategic defense systems and scalable corporate enterprise solutions[cite: 1].</p>
+    </div>
+
+    <div class="grid md:grid-cols-2 gap-8">
+      <!-- Pillar Card 1 -->
+      <div class="pillar-card bg-[#0B132B]/60 backdrop-blur-md p-8 rounded-xl border border-[#4D7C0F]/50 space-y-4 hover:border-[#A3E635] transition duration-500 shadow-xl group[cite: 1]">
+        <div class="w-10 h-10 rounded-lg bg-[#4D7C0F]/20 flex items-center justify-center text-[#A3E635] group-hover:bg-[#4D7C0F]/40 transition[cite: 1]">
+          🛡️
+        </div>
+        <span class="text-xs font-mono text-[#A3E635] font-bold uppercase tracking-wider block[cite: 1]">Defence Sector</span>
+        <h3 class="text-2xl font-semibold text-white">Strategic Intelligence & Surveillance[cite: 1]</h3>
+        <p class="text-[#9CA3AF] text-sm leading-relaxed">
+          Deploying autonomous computational models, automated surveillance systems, threat matrices, and high-frequency real-time intelligence feeds designed explicitly for national defense ecosystems and security frameworks[cite: 1].
+        </p>
+      </div>
+
+      <!-- Pillar Card 2 -->
+      <div class="pillar-card bg-[#0B132B]/60 backdrop-blur-md p-8 rounded-xl border border-[#1F2937] space-y-4 hover:border-[#06B6D4]/50 transition duration-500 shadow-xl group[cite: 1]">
+        <div class="w-10 h-10 rounded-lg bg-[#06B6D4]/10 flex items-center justify-center text-[#06B6D4] group-hover:bg-[#06B6D4]/20 transition[cite: 1]">
+          ⚡
+        </div>
+        <span class="text-xs font-mono text-[#06B6D4] font-bold uppercase tracking-wider block[cite: 1]">Other Solutions</span>
+        <h3 class="text-2xl font-semibold text-white">Enterprise AI & Custom Engineering[cite: 1]</h3>
+        <p class="text-[#9CA3AF] text-sm leading-relaxed">
+          Engineered cross-sector custom software architectures, large-scale database operations, automation models, and scalable modern web solutions tailored explicitly to modern business verticals[cite: 1].
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- BUSINESS ECOSYSTEM HUB -->
+  <section id="ecosystem" class="content-section min-h-screen max-w-7xl mx-auto px-8 md:px-20 py-24 flex flex-col justify-center space-y-12">
+    <div class="text-center space-y-2">
+      <h2 class="text-3xl font-bold text-white">Our Diversified Growth Channels[cite: 1]</h2>
+      <p class="text-[#9CA3AF] text-sm max-w-xl mx-auto">Deploying capability sustainably outward from our foundational structures to minimize single-channel dependency[cite: 1].</p>
+    </div>
+
+    <!-- Interactive Interactive Hub List Grid Layout -->
+    <div class="grid grid-cols-2 md:grid-cols-5 gap-4 pt-8">
+      <div class="eco-node p-6 bg-[#030712]/80 border border-[#06B6D4]/40 rounded-xl text-center backdrop-blur-md[cite: 1]">
+        <div class="text-xs font-mono text-[#06B6D4] mb-2">FOUNDATION[cite: 1]</div>
+        <div class="font-semibold text-white text-sm">SG Consulting Base[cite: 1]</div>
+      </div>
+      <div class="eco-node p-6 bg-[#0B132B]/40 border border-[#1F2937] rounded-xl text-center backdrop-blur-md[cite: 1]">
+        <div class="text-xs font-mono text-[#9CA3AF] mb-2">02[cite: 1]</div>
+        <div class="font-semibold text-white text-sm">New Private Clients[cite: 1]</div>
+      </div>
+      <div class="eco-node p-6 bg-[#0B132B]/40 border border-[#1F2937] rounded-xl text-center backdrop-blur-md[cite: 1]">
+        <div class="text-xs font-mono text-[#9CA3AF] mb-2">03[cite: 1]</div>
+        <div class="font-semibold text-white text-sm">Government Projects[cite: 1]</div>
+      </div>
+      <div class="eco-node p-6 bg-[#0B132B]/40 border border-[#1F2937] rounded-xl text-center backdrop-blur-md[cite: 1]">
+        <div class="text-xs font-mono text-[#9CA3AF] mb-2">04[cite: 1]</div>
+        <div class="font-semibold text-white text-sm">Digital Products[cite: 1]</div>
+      </div>
+      <div class="eco-node p-6 bg-[#0B132B]/40 border border-[#1F2937] rounded-xl text-center backdrop-blur-md[cite: 1]">
+        <div class="text-xs font-mono text-[#9CA3AF] mb-2">05[cite: 1]</div>
+        <div class="font-semibold text-white text-sm">Referral Networks[cite: 1]</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- OPERATIONAL PHILOSOPHY BANNER -->
+  <section id="philosophy" class="content-section min-h-[60vh] bg-[#0B132B]/30 border-y border-[#1F2937] flex items-center justify-center text-center px-8[cite: 1]">
+    <div class="max-w-3xl space-y-6">
+      <p class="text-xs font-mono tracking-widest text-[#A3E635] uppercase[cite: 1]">Core Operational Doctrine[cite: 1]</p>
+      <blockquote class="text-2xl md:text-4xl font-light italic text-white leading-relaxed[cite: 1]">
+        "Acquire customers only when delivery capability exists. Build the operational foundation first, then scale marketing."[cite: 1]
+      </blockquote>
+      <p class="text-[#9CA3AF] text-sm font-mono">— Trinetra Governance Blueprint[cite: 1]</p>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="content-section w-full border-t border-[#1F2937]/50 px-8 md:px-20 py-8 flex flex-col sm:flex-row items-center justify-between text-xs text-[#9CA3AF] gap-4 bg-[#030712]">
+    <p>© 2026 Trinetra Consulting Pvt. Ltd. Structured Delivery Governance[cite: 1].</p>
+    <div class="flex items-center gap-6">
+      <a href="#" class="hover:text-white transition">LinkedIn[cite: 1]</a>
+      <a href="#" class="hover:text-white transition">Systems Infrastructure[cite: 1]</a>
+    </div>
+  </footer>
+
+  <!-- 3D ANIMATION SCRIPT (THREE.JS + GSAP) -->
+  <script>
+    gsap.registerPlugin(ScrollTrigger);
+
+    // --- 1. INITIALIZE THREE.JS GRAPHICS SCENE ---
+    const container = document.getElementById('canvas-container');
+    const scene = new THREE.Scene();
+    
+    // Camera
+    const camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 1000);
+    camera.position.z = 45;
+    camera.position.y = 5;
+
+    // Renderer
+    const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    container.appendChild(renderer.domElement);
+
+    // --- 2. GENERATE THE CYBERNETIC DATA MATRIX (PARTICLES) ---
+    const count = 1800;
+    const geometry = new THREE.BufferGeometry();
+    const positions = new Float32Array(count * 3);
+    const colors = new Float32Array(count * 3);
+
+    // Form a wide cybernetic tactical grid plane
+    for(let i = 0; i < count * 3; i+=3) {
+      // Coordinates
+      positions[i] = (Math.random() - 0.5) * 120;     // X axis range
+      positions[i+1] = (Math.random() - 0.5) * 40 - 5; // Y axis range
+      positions[i+2] = (Math.random() - 0.5) * 100;    // Z axis range
+
+      // Dual Gradient Color Mix (Tactical Defence Green vs AI Electric Cyan)
+      const mixedColor = Math.random();
+      if(mixedColor > 0.5) {
+        colors[i] = 0.02;   // R (Cyan `#06B6D4`)
+        colors[i+1] = 0.71; // G
+        colors[i+2] = 0.83; // B
+      } else {
+        colors[i] = 0.30;   // R (Tactical Green `#4D7C0F`)
+        colors[i+1] = 0.49; // G
+        colors[i+2] = 0.06; // B
+      }
+    }
+
+    geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+    geometry.setAttribute('color', new THREE.BufferAttribute(colors, 3));
+
+    // Particle Shader Styling
+    const material = new THREE.PointsMaterial({
+      size: 0.35,
+      vertexColors: true,
+      transparent: true,
+      opacity: 0.65,
+      blending: THREE.AdditiveBlending
+    });
+
+    const particleMesh = new THREE.Points(geometry, mesh => {});
+    const points = new THREE.Points(geometry, material);
+    scene.add(points);
+
+    // Subtle Ambient Base Lighting
+    const ambientLight = new THREE.AmbientLight(0xffffff, 0.4);
+    scene.add(ambientLight);
+
+    // --- 3. SCROLL-DRIVEN 3D CAMERA TRANSFORMATIONS (GSAP) ---
+    
+    // Intro Entrance Animation
+    gsap.from(".hero-text", {
+      y: 40,
+      opacity: 0,
+      duration: 1.2,
+      stagger: 0.2,
+      ease: "power4.out"
+    });
+
+    // Scroll Transformation 1: Move from Hero into Capabilities
+    gsap.to(camera.position, {
+      z: 25,
+      y: 12,
+      x: -10,
+      scrollTrigger: {
+        trigger: "#hero",
+        start: "top top",
+        end: "bottom top",
+        scrub: 1
+      }
+    });
+
+    // Scroll Transformation 2: Rotate Matrix into Ecosystem Phase
+    gsap.to(points.rotation, {
+      y: Math.PI * 0.5,
+      x: 0.2,
+      scrollTrigger: {
+        trigger: "#pillars",
+        start: "top top",
+        end: "bottom top",
+        scrub: 1
+      }
+    });
+
+    // Scroll Transformation 3: Dive deep into data field for Core Philosophy
+    gsap.to(camera.position, {
+      z: 10,
+      y: -5,
+      x: 0,
+      scrollTrigger: {
+        trigger: "#ecosystem",
+        start: "top top",
+        end: "bottom top",
+        scrub: 1
+      }
+    });
+
+    // Fade in text elements beautifully on scroll
+    gsap.utils.toArray('.pillar-card, .eco-node').forEach(elem => {
+      gsap.from(elem, {
+        opacity: 0,
+        y: 30,
+        duration: 0.8,
+        scrollTrigger: {
+          trigger: elem,
+          start: "top 85%",
+          toggleActions: "play none none reverse"
+        }
+      });
+    });
+
+    // --- 4. ENGINE ANIMATION LOOP ---
+    const clock = new THREE.Clock();
+
+    function animate() {
+      requestAnimationFrame(animate);
+      
+      const elapsedTime = clock.getElapsedTime();
+      
+      // Keep the 3D grid rippling smoothly over time
+      points.rotation.z = elapsedTime * 0.02;
+      
+      // Simulating atmospheric noise fluctuation
+      const positionAttribute = points.geometry.attributes.position;
+      for (let i = 0; i < count; i++) {
+        const yOld = positionAttribute.getY(i);
+        // Micro-fluctuations over a sine wave to emulate computing node processing
+        positionAttribute.setY(i, yOld + Math.sin(elapsedTime + i) * 0.002);
+      }
+      positionAttribute.needsUpdate = true;
+
+      renderer.render(scene, camera);
+    }
+    animate();
+
+    // --- 5. RESPONSIVE WINDOW RESIZING ---
+    window.addEventListener('resize', () => {
+      camera.aspect = window.innerWidth / window.innerHeight;
+      camera.updateProjectionMatrix();
+      renderer.setSize(window.innerWidth, window.innerHeight);
+    });
+  </script>
+</body>
+</html>
