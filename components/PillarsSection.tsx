@@ -1,61 +1,44 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Image from "next/image";
+
+interface Capability {
+  id: number;
+  cap_id: string;
+  icon: string;
+  iconBg: string;
+  iconColor: string;
+  title: string;
+  desc: string;
+  image: string;
+  tags: string[];
+}
 
 export default function PillarsSection() {
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [capabilities, setCapabilities] = useState<Capability[]>([]);
 
-  const capabilities = [
-    {
-      id: "CAP_01",
-      icon: "🛡️",
-      iconBg: "bg-blue-50",
-      iconColor: "text-blue-600",
-      title: "Strategic Defence AI",
-      desc: "Deploying autonomous computational models, automated surveillance systems, and high-frequency real-time intelligence feeds designed explicitly for national defense ecosystems.",
-      image: "/images/defence_ai_1782069307313.png",
-      tags: ["Threat Detection", "Secure Comms", "Tactical Pipelines"]
-    },
-    {
-      id: "CAP_02",
-      icon: "🧠",
-      iconBg: "bg-purple-50",
-      iconColor: "text-purple-600",
-      title: "Enterprise AI & Automation",
-      desc: "Large-scale database operations, predictive modeling, and business process automation tailored for modern commercial verticals.",
-      image: "/images/ai_automation_1782069318007.png",
-      tags: ["Predictive Models", "Workflow Auth", "Data Mining"]
-    },
-    {
-      id: "CAP_03",
-      icon: "🌐",
-      iconBg: "bg-cyan-50",
-      iconColor: "text-cyan-600",
-      title: "Modern Web Architecture",
-      desc: "High-performance, scalable web applications with sleek UIs, secure backend integrations, and cutting-edge frontend frameworks.",
-      image: "/images/web_development_1782069330377.png",
-      tags: ["React/Next.js", "Serverless", "Edge Computing"]
-    },
-    {
-      id: "CAP_04",
-      icon: "📱",
-      iconBg: "bg-emerald-50",
-      iconColor: "text-emerald-600",
-      title: "Cross-Platform Apps",
-      desc: "Native and cross-platform mobile experiences engineered for maximum user engagement, speed, and seamless API synchronization.",
-      image: "/images/app_development_1782069342508.png",
-      tags: ["iOS Native", "Android", "Flutter"]
-    }
-  ];
+  useEffect(() => {
+    fetch(`${process.env.NEXT_PUBLIC_API_URL}/capabilities/`)
+      .then((res) => res.json())
+      .then((data) => setCapabilities(data))
+      .catch((err) => console.error("Error fetching capabilities:", err));
+  }, []);
 
   const handleNext = () => {
+    if (capabilities.length === 0) return;
     setCurrentIndex((prev) => (prev + 1) % capabilities.length);
   };
 
   const handlePrev = () => {
+    if (capabilities.length === 0) return;
     setCurrentIndex((prev) => (prev - 1 + capabilities.length) % capabilities.length);
   };
+
+  if (capabilities.length === 0) {
+    return <section id="pillars" className="relative z-10 py-32 bg-white overflow-hidden"><div className="text-center">Loading Capabilities...</div></section>;
+  }
 
   return (
     <section id="pillars" className="relative z-10 py-32 bg-white overflow-hidden">
@@ -121,7 +104,7 @@ export default function PillarsSection() {
                   />
                   {isCenter && (
                     <div className="absolute top-4 right-4 bg-white/90 backdrop-blur-sm px-3 py-1 rounded-full text-xs font-bold text-slate-900 font-mono shadow-sm">
-                      {cap.id}
+                      {cap.cap_id}
                     </div>
                   )}
                   {/* Dark overlay for inactive cards */}

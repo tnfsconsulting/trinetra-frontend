@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { useState } from "react";
 
 export default function Navbar() {
@@ -10,10 +11,10 @@ export default function Navbar() {
     <header className="fixed top-6 left-1/2 -translate-x-1/2 w-[90%] max-w-3xl h-14 border border-slate-200 bg-white/80 backdrop-blur-lg rounded-full z-50 px-6 flex items-center justify-between shadow-[0_8px_30px_rgb(0,0,0,0.08)]">
       
       {/* 1. LOGO */}
-      <div className="flex items-center gap-2 relative z-50">
-        <div className="w-2.5 h-2.5 rounded-full bg-[#06B6D4] animate-pulse"></div>
-        <span className="text-lg font-bold tracking-wide text-slate-900">TNFS</span>
-      </div>
+      <Link href="/" className="flex items-center gap-3 relative z-50">
+        <Image src="/images/TNFS_NoBG.png" alt="TNFS Logo" width={48} height={48} className="w-12 h-12 object-contain scale-125 origin-left" />
+        <span className="text-xl font-bold tracking-wide text-slate-900 ml-1">TNFS</span>
+      </Link>
 
       {/* 2. DESKTOP NAV */}
       <nav className="hidden md:flex items-center gap-8 text-xs font-semibold uppercase tracking-wider text-slate-500">
@@ -31,14 +32,24 @@ export default function Navbar() {
         </div>
 
         <Link href="#cases" className="hover:text-slate-900 transition">Cases</Link>
-        <Link href="#newsroom" className="hover:text-slate-900 transition">Newsroom</Link>
-        <Link href="#contact" className="hover:text-slate-900 transition">Contact</Link>
+        <Link href="/newsroom" className="hover:text-slate-900 transition">Newsroom</Link>
       </nav>
 
-      {/* 3. MOBILE MENU TOGGLE */}
-      <div className="flex items-center md:hidden relative z-50">
+      {/* 3. ACTIONS & MOBILE TOGGLE */}
+      <div className="flex items-center gap-4 relative z-50">
+        <Link 
+          href="#contact" 
+          className="hidden md:inline-flex items-center gap-1.5 rounded-full bg-slate-900 px-5 py-2 text-sm font-semibold text-white transition-transform hover:-translate-y-0.5"
+        >
+          Talk to us
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-3.5 h-3.5">
+            <path d="M5 12h14"></path>
+            <path d="m12 5 7 7-7 7"></path>
+          </svg>
+        </Link>
+        
         <button
-          className="text-slate-600 hover:text-slate-900 transition p-2"
+          className="md:hidden text-slate-600 hover:text-slate-900 transition p-2"
           onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
         >
           <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -63,8 +74,19 @@ export default function Navbar() {
           </div>
 
           <Link href="#cases" onClick={() => setIsMobileMenuOpen(false)} className="hover:text-slate-900 transition">Cases</Link>
-          <Link href="#newsroom" onClick={() => setIsMobileMenuOpen(false)} className="hover:text-slate-900 transition">Newsroom</Link>
-          <Link href="#contact" onClick={() => setIsMobileMenuOpen(false)} className="hover:text-slate-900 transition">Contact</Link>
+          <Link href="/newsroom" onClick={() => setIsMobileMenuOpen(false)} className="hover:text-slate-900 transition">Newsroom</Link>
+          
+          <Link 
+            href="#contact" 
+            onClick={() => setIsMobileMenuOpen(false)} 
+            className="mt-2 inline-flex items-center gap-1.5 rounded-full bg-slate-900 px-6 py-2.5 text-sm font-semibold text-white transition-transform active:scale-95"
+          >
+            Talk to us
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-3.5 h-3.5">
+              <path d="M5 12h14"></path>
+              <path d="m12 5 7 7-7 7"></path>
+            </svg>
+          </Link>
         </div>
       )}
     </header>

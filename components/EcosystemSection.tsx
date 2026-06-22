@@ -1,51 +1,40 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Image from "next/image";
+
+interface Doctrine {
+  id: number;
+  label: string;
+  title: string;
+  desc: string;
+  image: string;
+}
 
 export default function EcosystemSection() {
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [methods, setMethods] = useState<Doctrine[]>([]);
 
-  const methods = [
-    {
-      label: "DOCTRINE 01",
-      title: "Tactical Agility & Engineering",
-      desc: "Rapid deployment cycles. We apply battlefield-tested adaptability to commercial product development for unmatched speed to market.",
-      image: "/images/agile_engineering_1782072161001.png",
-    },
-    {
-      label: "DOCTRINE 02",
-      title: "Mission-Critical Analytics",
-      desc: "From defence threat-detection logic to enterprise growth metrics, our data strategies ensure precise, high-stakes decision making.",
-      image: "/images/data_strategy_1782072175430.png",
-    },
-    {
-      label: "DOCTRINE 03",
-      title: "Zero-Trust Architecture",
-      desc: "Military-grade cybersecurity frameworks meticulously tailored to protect both national defence networks and sensitive corporate assets.",
-      image: "/images/enterprise_security_1782072186176.png",
-    },
-    {
-      label: "DOCTRINE 04",
-      title: "Resilient Infrastructure",
-      desc: "Hardened, highly scalable cloud systems designed to withstand high-stress environments, cyber threats, and massive traffic spikes.",
-      image: "/images/scalable_architecture_1782072197619.png",
-    },
-    {
-      label: "DOCTRINE 05",
-      title: "Autonomous Systems & AI",
-      desc: "Deploying intelligent automation everywhere—scaling seamlessly from autonomous defence operations to complex enterprise workflows.",
-      image: "/images/intelligent_automation_1782072210060.png",
-    },
-  ];
+  useEffect(() => {
+    fetch(`${process.env.NEXT_PUBLIC_API_URL}/doctrines/`)
+      .then((res) => res.json())
+      .then((data) => setMethods(data))
+      .catch((err) => console.error("Error fetching doctrines:", err));
+  }, []);
 
   const handleNext = () => {
+    if (methods.length === 0) return;
     setCurrentIndex((prev) => (prev + 1) % methods.length);
   };
 
   const handlePrev = () => {
+    if (methods.length === 0) return;
     setCurrentIndex((prev) => (prev - 1 + methods.length) % methods.length);
   };
+
+  if (methods.length === 0) {
+    return <section id="ecosystem" className="relative z-10 py-32 bg-slate-50 border-t border-slate-200 overflow-hidden"><div className="text-center">Loading Ecosystem...</div></section>;
+  }
 
   return (
     <section id="ecosystem" className="relative z-10 py-32 bg-slate-50 border-t border-slate-200 overflow-hidden">

@@ -8,6 +8,7 @@ import EcosystemSection from "../components/EcosystemSection";
 import DeploymentPipelineSection from "../components/DeploymentPipelineSection";
 import MissionBriefsSection from "../components/MissionBriefsSection";
 import PhilosophySection from "../components/PhilosophySection";
+import BookSessionCard from "../components/BookSessionCard";
 import Footer from "../components/Footer";
 
 export default function Home() {
@@ -23,6 +24,7 @@ export default function Home() {
       <DeploymentPipelineSection />
       <MissionBriefsSection />
       <PhilosophySection />
+      <BookSessionCard />
       <Footer />
     </main>
   );

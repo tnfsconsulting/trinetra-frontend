@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 
 export default function Footer() {
   return (
@@ -7,9 +8,9 @@ export default function Footer() {
         
         {/* LOGO & BRIEF */}
         <div className="lg:col-span-2 space-y-6">
-          <div className="flex items-center gap-2">
-            <div className="w-3 h-3 rounded-full bg-[#06B6D4]"></div>
-            <span className="text-xl font-bold tracking-wide text-white">TNFS</span>
+          <div className="flex items-center gap-3">
+            <Image src="/images/TNFS_NoBG.png" alt="TNFS Logo" width={80} height={80} className="w-20 h-20 object-contain scale-110 origin-left" />
+            <span className="text-3xl font-bold tracking-wide text-white ml-1">TNFS</span>
           </div>
           <p className="text-sm text-slate-400 max-w-sm leading-relaxed">
             Next-generation AI solutions engineered for strategic defence intelligence and scalable enterprise operations.
@@ -42,7 +43,7 @@ export default function Footer() {
           <h4 className="text-xs font-bold uppercase tracking-widest text-slate-500">Company</h4>
           <ul className="space-y-4 text-sm font-medium">
             <li><Link href="#about" className="hover:text-white transition">About Us</Link></li>
-            <li><Link href="#newsroom" className="hover:text-white transition">Newsroom</Link></li>
+            <li><Link href="/newsroom" className="hover:text-white transition">Newsroom</Link></li>
             <li><Link href="#blog" className="hover:text-white transition">Blog</Link></li>
             <li><Link href="#contact" className="hover:text-white transition">Contact</Link></li>
             <li><Link href="#" className="hover:text-white transition">Careers</Link></li>

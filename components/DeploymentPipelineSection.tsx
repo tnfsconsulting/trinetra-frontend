@@ -1,28 +1,23 @@
 "use client";
 
+import { useEffect, useState } from "react";
+
+interface PipelineStep {
+  id: number;
+  num: string;
+  title: string;
+  desc: string;
+}
+
 export default function DeploymentPipelineSection() {
-  const steps = [
-    {
-      num: "01",
-      title: "Reconnaissance & Strategy",
-      desc: "Deep architectural mapping to identify vulnerabilities, bottlenecks, and growth vectors.",
-    },
-    {
-      num: "02",
-      title: "Tactical Engineering",
-      desc: "Rapid, secure code development utilizing battlefield-tested design paradigms.",
-    },
-    {
-      num: "03",
-      title: "Hardening & QA",
-      desc: "Rigorous penetration testing and zero-trust validation before launch.",
-    },
-    {
-      num: "04",
-      title: "Global Deployment",
-      desc: "Pushing to highly scalable, extremely resilient cloud infrastructure.",
-    },
-  ];
+  const [steps, setSteps] = useState<PipelineStep[]>([]);
+
+  useEffect(() => {
+    fetch(`${process.env.NEXT_PUBLIC_API_URL}/pipeline/`)
+      .then((res) => res.json())
+      .then((data) => setSteps(data))
+      .catch((err) => console.error("Error fetching pipeline steps:", err));
+  }, []);
 
   return (
     <section className="relative z-10 py-32 bg-white border-b border-slate-200">

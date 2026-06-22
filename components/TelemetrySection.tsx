@@ -1,12 +1,22 @@
 "use client";
 
+import { useEffect, useState } from "react";
+
+interface TelemetryStat {
+  id: number;
+  value: string;
+  label: string;
+}
+
 export default function TelemetrySection() {
-  const stats = [
-    { value: "99.999%", label: "Mission-Critical Uptime" },
-    { value: "< 5ms", label: "Tactical Data Latency" },
-    { value: "Zero-Day", label: "Vulnerabilities Neutralized" },
-    { value: "100+", label: "Deployments Secured" },
-  ];
+  const [stats, setStats] = useState<TelemetryStat[]>([]);
+
+  useEffect(() => {
+    fetch(`${process.env.NEXT_PUBLIC_API_URL}/telemetry/`)
+      .then((res) => res.json())
+      .then((data) => setStats(data))
+      .catch((err) => console.error("Error fetching telemetry stats:", err));
+  }, []);
 
   return (
     <section className="relative z-10 py-24 bg-[#0a0e17] text-white border-y border-white/10">

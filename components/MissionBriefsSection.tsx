@@ -1,54 +1,41 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import Image from "next/image";
 
+interface DiffLine {
+  id: number;
+  type: string;
+  text: string;
+}
+
+interface MissionBrief {
+  id: number;
+  type: string;
+  brief_id: string;
+  title: string;
+  content?: string;
+  metric?: string;
+  subtext?: string;
+  image?: string;
+  accent: string;
+  bg: string;
+  diffLines?: DiffLine[];
+}
+
 export default function MissionBriefsSection() {
-  const briefs = [
-    {
-      type: "terminal",
-      id: "OP_AURA",
-      title: "Threat Detection Engine",
-      content: "Syslog monitoring...\n> Anomaly detected at edge.\n> Isolating node [0x9A]...\n> Node isolated successfully.",
-      accent: "text-green-400",
-      bg: "bg-[#050505]"
-    },
-    {
-      type: "metric",
-      id: "OP_NEXUS",
-      title: "Cloud Migration",
-      metric: "99.999%",
-      subtext: "Uptime SLA Maintained",
-      accent: "text-cyan-400",
-      bg: "bg-slate-900"
-    },
-    {
-      type: "graph",
-      id: "OP_SENTINEL",
-      title: "Zero-Trust Auth System",
-      accent: "text-purple-400",
-      bg: "bg-[#0a0e17]"
-    },
-    {
-      type: "diff",
-      id: "OP_VALKYRIE",
-      title: "Autonomous Drone UI",
-      diffLines: [
-        { type: "rem", text: "- latency: 15ms" },
-        { type: "add", text: "+ latency: < 2ms" },
-        { type: "add", text: "+ autoReroute: true" }
-      ],
-      accent: "text-indigo-400",
-      bg: "bg-slate-950"
-    },
-    {
-      type: "image",
-      id: "OP_ECLIPSE",
-      title: "Enterprise Warehouse",
-      image: "/images/scalable_architecture_1782072197619.png",
-      accent: "text-teal-400",
-      bg: "bg-black"
-    },
-  ];
+  const [briefs, setBriefs] = useState<MissionBrief[]>([]);
+
+  useEffect(() => {
+    fetch(`${process.env.NEXT_PUBLIC_API_URL}/mission-briefs/`)
+      .then((res) => res.json())
+      .then((data) => setBriefs(data))
+      .catch((err) => console.error("Error fetching mission briefs:", err));
+  }, []);
+
+  if (briefs.length === 0) {
+    return <section className="overflow-hidden bg-[#0a0e17] py-24 text-white"><div className="text-center">Loading Mission Briefs...</div></section>;
+  }
 
   return (
     <section className="overflow-hidden bg-[#0a0e17] py-24 text-white">
@@ -68,7 +55,7 @@ export default function MissionBriefsSection() {
             >
               {/* Card Header */}
               <div className="flex items-center justify-between bg-white/5 px-5 py-4 font-mono text-[10px] uppercase tracking-wider text-white/60 border-b border-white/5 z-20 backdrop-blur-md">
-                <span>{brief.id} // {brief.type}</span>
+                <span>{brief.brief_id} // {brief.type}</span>
                 <span className="flex items-center gap-1.5">
                   <span className={`size-1.5 animate-pulse rounded-full bg-current ${brief.accent}`}></span>
                   SECURE
