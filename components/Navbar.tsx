@@ -25,22 +25,11 @@ export default function Navbar() {
 
       {/* 2. DESKTOP NAV */}
       <nav className="hidden md:flex items-center gap-10 text-[11px] font-medium uppercase tracking-[0.15em] text-white/60">
-        <Link href="#about" className="hover:text-white transition-colors duration-300">Platform</Link>
-        
-        {/* SERVICES DROPDOWN */}
-        <div className="relative group py-6">
-          <button className="hover:text-white transition-colors duration-300 flex items-center gap-1.5 outline-none">
-            Capabilities <span className="text-[8px] opacity-40">▼</span>
-          </button>
-          <div className="absolute left-1/2 -translate-x-1/2 top-full mt-0 w-64 bg-[#0a0a0a]/95 backdrop-blur-xl border border-white/10 p-2 shadow-[0_0_30px_rgba(0,0,0,0.5)] opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform -translate-y-2 group-hover:translate-y-0">
-            <Link href="#pillars" className="block px-4 py-3 hover:bg-white/5 text-white/70 hover:text-white transition-colors">Defense Operations</Link>
-            <div className="h-px w-full bg-white/5 my-1"></div>
-            <Link href="#other-industries" className="block px-4 py-3 hover:bg-white/5 text-white/70 hover:text-white transition-colors">Commercial Intelligence</Link>
-          </div>
-        </div>
-
-        <Link href="#cases" className="hover:text-white transition-colors duration-300">Case Studies</Link>
-        <Link href="/newsroom" className="hover:text-white transition-colors duration-300">Intelligence Brief</Link>
+        <Link href="/" className="hover:text-white transition-colors duration-300">Home</Link>
+        {/* <Link href="/#about" className="hover:text-white transition-colors duration-300">Platform</Link> */}
+        {/* <div className="relative group py-6"> ... Capabilities ... </div> */}
+        <Link href="/#cases" className="hover:text-white transition-colors duration-300">Case Studies</Link>
+        <Link href="/newsroom" className="hover:text-white transition-colors duration-300">Newsroom</Link>
       </nav>
 
       {/* 3. ACTIONS & MOBILE TOGGLE */}
@@ -62,16 +51,10 @@ export default function Navbar() {
       {/* 4. MOBILE DROPDOWN MENU */}
       {isMobileMenuOpen && (
         <div className="absolute top-16 left-0 w-full bg-[#0a0a0a]/95 backdrop-blur-2xl border-b border-white/10 md:hidden flex flex-col items-center py-8 gap-8 text-[11px] font-medium uppercase tracking-[0.15em] text-white/60 shadow-2xl transition-all">
-          <Link href="#about" onClick={() => setIsMobileMenuOpen(false)} className="hover:text-white transition">Platform</Link>
-          
-          <div className="flex flex-col items-center gap-4 w-full">
-            <span className="text-white/30 border-b border-white/10 pb-2 px-12">Capabilities</span>
-            <Link href="#pillars" onClick={() => setIsMobileMenuOpen(false)} className="hover:text-white transition">Defense Operations</Link>
-            <Link href="#other-industries" onClick={() => setIsMobileMenuOpen(false)} className="hover:text-white transition">Commercial Intelligence</Link>
-          </div>
-
-          <Link href="#cases" onClick={() => setIsMobileMenuOpen(false)} className="hover:text-white transition">Case Studies</Link>
-          <Link href="/newsroom" onClick={() => setIsMobileMenuOpen(false)} className="hover:text-white transition">Intelligence Brief</Link>
+          <Link href="/" onClick={() => setIsMobileMenuOpen(false)} className="hover:text-white transition">Home</Link>
+          {/* <Link href="/#about" onClick={() => setIsMobileMenuOpen(false)} className="hover:text-white transition">Platform</Link> */}
+          <Link href="/#cases" onClick={() => setIsMobileMenuOpen(false)} className="hover:text-white transition">Case Studies</Link>
+          <Link href="/newsroom" onClick={() => setIsMobileMenuOpen(false)} className="hover:text-white transition">Newsroom</Link>
         </div>
       )}
     </header>
