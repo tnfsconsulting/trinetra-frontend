@@ -1,22 +1,9 @@
 "use client";
 
-import { useEffect, useState } from "react";
-
-interface TelemetryStat {
-  id: number;
-  value: string;
-  label: string;
-}
+import { TELEMETRY_STATS } from "../lib/data";
 
 export default function TelemetrySection() {
-  const [stats, setStats] = useState<TelemetryStat[]>([]);
-
-  useEffect(() => {
-    fetch(`${process.env.NEXT_PUBLIC_API_URL}/telemetry/`)
-      .then((res) => res.json())
-      .then((data) => setStats(data))
-      .catch((err) => console.error("Error fetching telemetry stats:", err));
-  }, []);
+  const stats = TELEMETRY_STATS;
 
   return (
     <section className="relative z-10 py-24 bg-transparent text-white border-y border-white/10 overflow-hidden">

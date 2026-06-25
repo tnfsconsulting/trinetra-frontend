@@ -1,23 +1,9 @@
 "use client";
 
-import { useEffect, useState } from "react";
-
-interface NewsArticle {
-  id: number;
-  title: string;
-  content: string;
-  created_at: string;
-}
+import { NEWS_ARTICLES } from "../lib/data";
 
 export default function NewsroomSection() {
-  const [news, setNews] = useState<NewsArticle[]>([]);
-
-  useEffect(() => {
-    fetch(`${process.env.NEXT_PUBLIC_API_URL}/news/`)
-      .then((res) => res.json())
-      .then((data) => setNews(data))
-      .catch((err) => console.error("Error fetching news:", err));
-  }, []);
+  const news = NEWS_ARTICLES;
 
   if (news.length === 0) {
     return <section id="newsroom" className="py-24 bg-white"><div className="text-center">Loading News...</div></section>;

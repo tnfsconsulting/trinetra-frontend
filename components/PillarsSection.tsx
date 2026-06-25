@@ -2,30 +2,12 @@
 
 import { useEffect, useState } from "react";
 import Image from "next/image";
-
-interface Capability {
-  id: number;
-  cap_id: string;
-  icon: string;
-  iconBg: string;
-  iconColor: string;
-  title: string;
-  desc: string;
-  image: string;
-  tags: string[];
-}
+import { CAPABILITIES } from "../lib/data";
 
 export default function PillarsSection() {
-  const [capabilities, setCapabilities] = useState<Capability[]>([]);
+  const capabilities = CAPABILITIES;
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isHovered, setIsHovered] = useState(false);
-
-  useEffect(() => {
-    fetch(`${process.env.NEXT_PUBLIC_API_URL}/capabilities/`)
-      .then((res) => res.json())
-      .then((data) => setCapabilities(data))
-      .catch((err) => console.error("Error fetching capabilities:", err));
-  }, []);
 
   // Auto-slide logic
   useEffect(() => {

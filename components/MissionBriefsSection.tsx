@@ -1,37 +1,10 @@
 "use client";
 
-import { useEffect, useState } from "react";
 import Image from "next/image";
-
-interface DiffLine {
-  id: number;
-  type: string;
-  text: string;
-}
-
-interface MissionBrief {
-  id: number;
-  type: string;
-  brief_id: string;
-  title: string;
-  content?: string;
-  metric?: string;
-  subtext?: string;
-  image?: string;
-  accent: string;
-  bg: string;
-  diffLines?: DiffLine[];
-}
+import { MISSION_BRIEFS } from "../lib/data";
 
 export default function MissionBriefsSection() {
-  const [briefs, setBriefs] = useState<MissionBrief[]>([]);
-
-  useEffect(() => {
-    fetch(`${process.env.NEXT_PUBLIC_API_URL}/mission-briefs/`)
-      .then((res) => res.json())
-      .then((data) => setBriefs(data))
-      .catch((err) => console.error("Error fetching mission briefs:", err));
-  }, []);
+  const briefs = MISSION_BRIEFS;
 
   if (briefs.length === 0) {
     return <section className="overflow-hidden bg-transparent py-24 text-white"><div className="text-center text-[10px] text-white/50 uppercase tracking-[0.2em]">Loading Mission Briefs...</div></section>;

@@ -1,23 +1,9 @@
 "use client";
 
-import { useEffect, useState } from "react";
-
-interface PipelineStep {
-  id: number;
-  num: string;
-  title: string;
-  desc: string;
-}
+import { PIPELINE_STEPS } from "../lib/data";
 
 export default function DeploymentPipelineSection() {
-  const [steps, setSteps] = useState<PipelineStep[]>([]);
-
-  useEffect(() => {
-    fetch(`${process.env.NEXT_PUBLIC_API_URL}/pipeline/`)
-      .then((res) => res.json())
-      .then((data) => setSteps(data))
-      .catch((err) => console.error("Error fetching pipeline steps:", err));
-  }, []);
+  const steps = PIPELINE_STEPS;
 
   return (
     <section className="relative z-10 py-32 bg-transparent">

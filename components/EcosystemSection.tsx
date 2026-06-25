@@ -2,26 +2,12 @@
 
 import { useEffect, useState } from "react";
 import Image from "next/image";
-
-interface Doctrine {
-  id: number;
-  label: string;
-  title: string;
-  desc: string;
-  image: string;
-}
+import { DOCTRINES } from "../lib/data";
 
 export default function EcosystemSection() {
-  const [methods, setMethods] = useState<Doctrine[]>([]);
+  const methods = DOCTRINES;
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isHovered, setIsHovered] = useState(false);
-
-  useEffect(() => {
-    fetch(`${process.env.NEXT_PUBLIC_API_URL}/doctrines/`)
-      .then((res) => res.json())
-      .then((data) => setMethods(data))
-      .catch((err) => console.error("Error fetching doctrines:", err));
-  }, []);
 
   // Auto-slide logic
   useEffect(() => {
