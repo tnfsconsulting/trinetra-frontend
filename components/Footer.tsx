@@ -32,7 +32,6 @@ export default function Footer() {
         <div className="space-y-6">
           <h4 className="text-[10px] font-medium uppercase tracking-[0.2em] text-[#06B6D4]">Platforms</h4>
           <ul className="space-y-4 text-[11px] uppercase tracking-[0.15em]">
-            <li><Link href="#" className="hover:text-white transition-colors duration-300">Shastra Engine</Link></li>
             <li><Link href="#" className="hover:text-white transition-colors duration-300">Ecosystem Networks</Link></li>
             <li><Link href="#" className="hover:text-white transition-colors duration-300">Security Infrastructure</Link></li>
           </ul>
@@ -58,7 +57,8 @@ export default function Footer() {
         <div className="flex items-center gap-6">
           <Link href="#" className="hover:text-white transition-colors duration-300">Privacy Policy</Link>
           <Link href="#" className="hover:text-white transition-colors duration-300">Terms of Service</Link>
-          <Link href="#" className="hover:text-white transition-colors duration-300">LinkedIn</Link>
+          <Link href="https://www.linkedin.com/company/tnfs-consulting" target="_blank" className="hover:text-white transition-colors duration-300">LinkedIn</Link>
+          <Link href="https://instagram.com/tnfsfounders" target="_blank" className="hover:text-white transition-colors duration-300">Instagram</Link>
         </div>
       </div>
     </footer>
