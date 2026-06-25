@@ -90,7 +90,7 @@ export default function NewsroomDashboard() {
 
   useEffect(() => {
     let isMounted = true;
-    fetchRSS(`defense industry weapons export sales supply chain military economic impact`)
+    fetchRSS(`"defense industry" OR "military tech" OR "weapons manufacturing" OR "aerospace"`)
       .then((items) => {
         if (isMounted) {
           setEconomicNews(items);
