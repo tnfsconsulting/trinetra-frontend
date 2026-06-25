@@ -14,7 +14,7 @@ export default function EcosystemSection() {
     if (methods.length === 0 || isHovered) return;
     const interval = setInterval(() => {
       setCurrentIndex((prev) => (prev + 1) % methods.length);
-    }, 4000);
+    }, 2200);
     return () => clearInterval(interval);
   }, [methods.length, isHovered]);
 
@@ -45,16 +45,16 @@ export default function EcosystemSection() {
       </div>
 
       {/* SINGLE WIDE CARD CAROUSEL */}
-      <div 
+      <div
         className="relative max-w-6xl mx-auto px-4 z-10 flex items-center justify-center min-h-[400px]"
-        onMouseEnter={() => setIsHovered(true)} 
+        onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
       >
-        
+
         {/* Left Button */}
-        <button 
+        <button
           onClick={handlePrev}
-          className="absolute left-2 md:left-8 z-50 p-4 border border-white/20 bg-black/80 hover:bg-white/10 text-white/50 hover:text-white transition-colors backdrop-blur-md"
+          className="hidden md:block absolute md:left-8 z-50 p-4 border border-white/20 bg-black/80 hover:bg-white/10 text-white/50 hover:text-white transition-colors backdrop-blur-md"
         >
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
             <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
@@ -62,12 +62,12 @@ export default function EcosystemSection() {
         </button>
 
         {/* The Card */}
-        <div className="w-full max-w-4xl bg-[#050505]/90 backdrop-blur-xl border border-white/20 overflow-hidden flex flex-col md:flex-row shadow-[0_0_50px_rgba(0,0,0,0.8)] transition-all duration-500">
-          
+        <div key={currentIndex} className="animate-fade-in w-full max-w-4xl bg-[#050505]/90 backdrop-blur-xl border border-white/20 overflow-hidden flex flex-col md:flex-row shadow-[0_0_50px_rgba(0,0,0,0.8)] transition-all duration-500">
+
           {/* Left Side: Image */}
           <div className="relative w-full md:w-2/5 h-64 md:h-auto border-b md:border-b-0 md:border-r border-white/10 overflow-hidden bg-black">
-            <Image 
-              src={method.image} 
+            <Image
+              src={method.image}
               alt={method.title}
               fill
               className="object-cover opacity-50 mix-blend-luminosity hover:opacity-100 hover:mix-blend-normal transition-all duration-700"
@@ -88,7 +88,7 @@ export default function EcosystemSection() {
             <h3 className="text-2xl md:text-3xl font-light uppercase tracking-tight text-white mb-6">
               {method.title}
             </h3>
-            
+
             <p className="text-white/50 text-sm md:text-base leading-relaxed font-light tracking-wide">
               {method.desc}
             </p>
@@ -96,9 +96,9 @@ export default function EcosystemSection() {
         </div>
 
         {/* Right Button */}
-        <button 
+        <button
           onClick={handleNext}
-          className="absolute right-2 md:right-8 z-50 p-4 border border-white/20 bg-black/80 hover:bg-white/10 text-white/50 hover:text-white transition-colors backdrop-blur-md"
+          className="hidden md:block absolute md:right-8 z-50 p-4 border border-white/20 bg-black/80 hover:bg-white/10 text-white/50 hover:text-white transition-colors backdrop-blur-md"
         >
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
             <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
@@ -110,7 +110,7 @@ export default function EcosystemSection() {
       {/* Indicator dots */}
       <div className="flex justify-center gap-3 mt-8 relative z-10">
         {methods.map((_, idx) => (
-          <button 
+          <button
             key={idx}
             onClick={() => setCurrentIndex(idx)}
             className={`w-2 h-2 rounded-full transition-all duration-300 ${idx === currentIndex ? 'bg-[#06B6D4] shadow-[0_0_8px_#06B6D4]' : 'bg-white/20'}`}

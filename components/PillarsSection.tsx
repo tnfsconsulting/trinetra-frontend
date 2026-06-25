@@ -14,7 +14,7 @@ export default function PillarsSection() {
     if (capabilities.length === 0 || isHovered) return;
     const interval = setInterval(() => {
       setCurrentIndex((prev) => (prev + 1) % capabilities.length);
-    }, 4000); // Slide every 4 seconds
+    }, 2500); // Slide every 2.5 seconds
     return () => clearInterval(interval);
   }, [capabilities.length, isHovered]);
 
@@ -56,7 +56,7 @@ export default function PillarsSection() {
         {/* Left Button */}
         <button 
           onClick={handlePrev}
-          className="absolute left-2 md:left-8 z-50 p-4 border border-white/20 bg-black/80 hover:bg-white/10 text-white/50 hover:text-white transition-colors backdrop-blur-md"
+          className="hidden md:block absolute md:left-8 z-50 p-4 border border-white/20 bg-black/80 hover:bg-white/10 text-white/50 hover:text-white transition-colors backdrop-blur-md"
         >
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
             <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
@@ -64,7 +64,7 @@ export default function PillarsSection() {
         </button>
 
         {/* The Card */}
-        <div className="w-full max-w-4xl bg-[#050505]/90 backdrop-blur-xl border border-white/20 overflow-hidden flex flex-col md:flex-row shadow-[0_0_50px_rgba(0,0,0,0.8)] transition-all duration-500">
+        <div key={currentIndex} className="animate-fade-in w-full max-w-4xl bg-[#050505]/90 backdrop-blur-xl border border-white/20 overflow-hidden flex flex-col md:flex-row shadow-[0_0_50px_rgba(0,0,0,0.8)] transition-all duration-500">
           
           {/* Left Side: Image */}
           <div className="relative w-full md:w-2/5 h-64 md:h-auto border-b md:border-b-0 md:border-r border-white/10 overflow-hidden bg-black">
@@ -109,7 +109,7 @@ export default function PillarsSection() {
         {/* Right Button */}
         <button 
           onClick={handleNext}
-          className="absolute right-2 md:right-8 z-50 p-4 border border-white/20 bg-black/80 hover:bg-white/10 text-white/50 hover:text-white transition-colors backdrop-blur-md"
+          className="hidden md:block absolute md:right-8 z-50 p-4 border border-white/20 bg-black/80 hover:bg-white/10 text-white/50 hover:text-white transition-colors backdrop-blur-md"
         >
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
             <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
