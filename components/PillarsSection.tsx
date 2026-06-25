@@ -16,8 +16,9 @@ interface Capability {
 }
 
 export default function PillarsSection() {
-  const [currentIndex, setCurrentIndex] = useState(0);
   const [capabilities, setCapabilities] = useState<Capability[]>([]);
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [isHovered, setIsHovered] = useState(false);
 
   useEffect(() => {
     fetch(`${process.env.NEXT_PUBLIC_API_URL}/capabilities/`)
@@ -26,131 +27,124 @@ export default function PillarsSection() {
       .catch((err) => console.error("Error fetching capabilities:", err));
   }, []);
 
-  const handleNext = () => {
-    if (capabilities.length === 0) return;
-    setCurrentIndex((prev) => (prev + 1) % capabilities.length);
-  };
+  // Auto-slide logic
+  useEffect(() => {
+    if (capabilities.length === 0 || isHovered) return;
+    const interval = setInterval(() => {
+      setCurrentIndex((prev) => (prev + 1) % capabilities.length);
+    }, 4000); // Slide every 4 seconds
+    return () => clearInterval(interval);
+  }, [capabilities.length, isHovered]);
 
   const handlePrev = () => {
     if (capabilities.length === 0) return;
     setCurrentIndex((prev) => (prev - 1 + capabilities.length) % capabilities.length);
   };
 
+  const handleNext = () => {
+    if (capabilities.length === 0) return;
+    setCurrentIndex((prev) => (prev + 1) % capabilities.length);
+  };
+
   if (capabilities.length === 0) {
-    return <section id="pillars" className="relative z-10 py-32 bg-white overflow-hidden"><div className="text-center">Loading Capabilities...</div></section>;
+    return <section id="pillars" className="relative z-10 py-32 bg-transparent overflow-hidden"><div className="text-center text-white/50 tracking-[0.2em] uppercase text-xs">Loading Modules...</div></section>;
   }
 
+  const cap = capabilities[currentIndex];
+
   return (
-    <section id="pillars" className="relative z-10 py-32 bg-white overflow-hidden">
-      {/* ORIGINAL SECTION HEADER */}
-      <div className="space-y-4 max-w-3xl mb-16 text-center mx-auto px-6">
-        <p className="text-xs font-bold tracking-widest text-[#06B6D4] uppercase">Core Capabilities</p>
-        <h2 className="text-3xl md:text-5xl font-bold text-slate-900 tracking-tight">Strategic Defence & Commercial Scaling</h2>
-        <p className="text-slate-600 text-sm md:text-base leading-relaxed">
-          Our dual-track infrastructure provides highly classified tactical systems for national security alongside scalable, modern software architectures for the commercial sector.
-        </p>
+    <section id="pillars" className="relative z-10 py-32 bg-transparent border-t border-white/10 overflow-hidden">
+      <div className="absolute inset-0 bg-black/40 backdrop-blur-sm pointer-events-none"></div>
+      
+      {/* SECTION HEADER */}
+      <div className="space-y-6 max-w-7xl mx-auto mb-16 px-8 relative z-10 text-center">
+        <p className="text-[10px] font-medium tracking-[0.3em] text-[#06B6D4] uppercase border border-white/10 inline-block px-4 py-1.5 bg-black/50">Core Capabilities</p>
+        <h2 className="text-4xl md:text-5xl font-light text-white tracking-tight uppercase max-w-2xl mx-auto leading-[1.1]">
+          Strategic Defense & Commercial <span className="font-semibold">Scaling</span>
+        </h2>
       </div>
 
-      {/* OVERLAPPED CAROUSEL WITH SIDE BUTTONS */}
-      <div className="relative max-w-6xl mx-auto px-4 flex items-center justify-center min-h-[500px]">
+      {/* SINGLE WIDE CARD CAROUSEL */}
+      <div 
+        className="relative max-w-6xl mx-auto px-4 z-10 flex items-center justify-center min-h-[400px]"
+        onMouseEnter={() => setIsHovered(true)} 
+        onMouseLeave={() => setIsHovered(false)}
+      >
         
-        {/* Previous Button */}
+        {/* Left Button */}
         <button 
           onClick={handlePrev}
-          className="absolute left-4 md:left-12 z-50 p-4 rounded-full bg-white border border-slate-200 shadow-lg text-slate-600 hover:text-cyan-500 hover:border-cyan-200 hover:scale-110 transition-all duration-300"
-          aria-label="Previous card"
+          className="absolute left-2 md:left-8 z-50 p-4 border border-white/20 bg-black/80 hover:bg-white/10 text-white/50 hover:text-white transition-colors backdrop-blur-md"
         >
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2.5} stroke="currentColor" className="w-6 h-6">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
             <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
           </svg>
         </button>
 
-        {/* Cards Container */}
-        <div className="relative w-full max-w-3xl h-[450px] md:h-[400px] flex justify-center items-center perspective-[1200px]">
-          {capabilities.map((cap, index) => {
-            // Calculate relative position based on infinite loop wrap-around
-            let diff = index - currentIndex;
-            const length = capabilities.length;
+        {/* The Card */}
+        <div className="w-full max-w-4xl bg-[#050505]/90 backdrop-blur-xl border border-white/20 overflow-hidden flex flex-col md:flex-row shadow-[0_0_50px_rgba(0,0,0,0.8)] transition-all duration-500">
+          
+          {/* Left Side: Image */}
+          <div className="relative w-full md:w-2/5 h-64 md:h-auto border-b md:border-b-0 md:border-r border-white/10 overflow-hidden bg-black">
+            <Image 
+              src={cap.image} 
+              alt={cap.title}
+              fill
+              className="object-cover opacity-50 mix-blend-luminosity hover:opacity-100 hover:mix-blend-normal transition-all duration-700"
+            />
+            {/* Corner Bracket */}
+            <div className="absolute top-4 left-4 w-4 h-4 border-t-2 border-l-2 border-[#06B6D4]/50"></div>
             
-            // Normalize diff for seamless loop (e.g., if array has 4 items, -3 becomes 1)
-            if (diff > Math.floor(length / 2)) diff -= length;
-            if (diff < -Math.floor(length / 2)) diff += length;
+            <div className="absolute bottom-4 left-4 flex items-center gap-2 px-3 py-1 bg-black/60 border border-white/10 backdrop-blur-sm">
+              <span className="w-1.5 h-1.5 bg-green-500 rounded-full animate-pulse shadow-[0_0_5px_#22c55e]"></span>
+              <span className="text-[10px] uppercase tracking-[0.2em] text-[#06B6D4]/80">{cap.cap_id}</span>
+            </div>
+          </div>
 
-            const isCenter = diff === 0;
-            const translateX = diff * 200; // Shift pixels based on distance (increased for wider cards)
-            const scale = 1 - Math.abs(diff) * 0.15; // Scale down distant cards
-            const zIndex = 50 - Math.abs(diff); // Center is top, edges go back
-            const opacity = Math.abs(diff) > 2 ? 0 : 1 - (Math.abs(diff) * 0.2); // Fade distant cards
+          {/* Right Side: Content */}
+          <div className="p-8 md:p-12 w-full md:w-3/5 flex flex-col justify-center relative">
+            <div className="absolute top-0 right-0 w-8 h-8 border-t-2 border-r-2 border-[#06B6D4]/20 opacity-50"></div>
+            <div className="absolute bottom-0 right-0 w-8 h-8 border-b-2 border-r-2 border-[#06B6D4]/20 opacity-50"></div>
+
+            <h3 className="text-2xl md:text-3xl font-light uppercase tracking-tight text-white mb-6">
+              {cap.title}
+            </h3>
             
-            return (
-              <div 
-                key={cap.id} 
-                onClick={() => setCurrentIndex(index)}
-                className={`absolute w-full max-w-[320px] md:max-w-[500px] lg:max-w-[580px] bg-white rounded-3xl border ${isCenter ? 'border-slate-200 shadow-2xl' : 'border-slate-200/50 shadow-md'} overflow-hidden flex flex-col transition-all duration-500 ease-[cubic-bezier(0.25,1,0.5,1)] ${isCenter ? 'cursor-default' : 'cursor-pointer hover:-translate-y-4'}`}
-                style={{
-                  transform: `translateX(${translateX}px) scale(${scale})`,
-                  zIndex,
-                  opacity,
-                  pointerEvents: Math.abs(diff) > 2 ? 'none' : 'auto'
-                }}
-              >
-                {/* Image Container */}
-                <div className="relative h-[200px] w-full overflow-hidden bg-slate-50">
-                  <Image 
-                    src={cap.image} 
-                    alt={cap.title}
-                    fill
-                    className="object-cover"
-                  />
-                  {isCenter && (
-                    <div className="absolute top-4 right-4 bg-white/90 backdrop-blur-sm px-3 py-1 rounded-full text-xs font-bold text-slate-900 font-mono shadow-sm">
-                      {cap.cap_id}
-                    </div>
-                  )}
-                  {/* Dark overlay for inactive cards */}
-                  {!isCenter && <div className="absolute inset-0 bg-white/40 backdrop-blur-[2px] transition-all duration-500" />}
-                </div>
-                
-                {/* Text Content */}
-                <div className="p-6 md:p-8 flex-1 flex flex-col bg-white">
-                  <div className="flex items-center gap-4 mb-4">
-                    <div className={`w-10 h-10 rounded-xl ${cap.iconBg} flex items-center justify-center ${cap.iconColor} shadow-sm text-xl`}>
-                      {cap.icon}
-                    </div>
-                    <h3 className="text-xl font-bold text-slate-900 leading-tight">{cap.title}</h3>
-                  </div>
-                  
-                  {isCenter && (
-                    <>
-                      <p className="text-slate-600 text-sm leading-relaxed mb-6 flex-1">
-                        {cap.desc}
-                      </p>
-                      
-                      <div className="flex flex-wrap gap-2 mt-auto">
-                        {cap.tags.map(tag => (
-                          <span key={tag} className="text-xs font-semibold text-slate-500 bg-slate-100 px-3 py-1 rounded-full">
-                            {tag}
-                          </span>
-                        ))}
-                      </div>
-                    </>
-                  )}
-                </div>
-              </div>
-            );
-          })}
+            <p className="text-white/50 text-sm md:text-base leading-relaxed mb-8 font-light tracking-wide">
+              {cap.desc}
+            </p>
+            
+            <div className="flex flex-wrap gap-3 mt-auto">
+              {cap.tags.map(tag => (
+                <span key={tag} className="text-[9px] font-medium uppercase tracking-[0.2em] text-white/40 border border-white/10 px-3 py-1.5 bg-white/[0.02]">
+                  {tag}
+                </span>
+              ))}
+            </div>
+          </div>
         </div>
 
-        {/* Next Button */}
+        {/* Right Button */}
         <button 
           onClick={handleNext}
-          className="absolute right-4 md:right-12 z-50 p-4 rounded-full bg-white border border-slate-200 shadow-lg text-slate-600 hover:text-cyan-500 hover:border-cyan-200 hover:scale-110 transition-all duration-300"
-          aria-label="Next card"
+          className="absolute right-2 md:right-8 z-50 p-4 border border-white/20 bg-black/80 hover:bg-white/10 text-white/50 hover:text-white transition-colors backdrop-blur-md"
         >
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2.5} stroke="currentColor" className="w-6 h-6">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
             <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
           </svg>
         </button>
+
+      </div>
+      
+      {/* Indicator dots */}
+      <div className="flex justify-center gap-3 mt-8 relative z-10">
+        {capabilities.map((_, idx) => (
+          <button 
+            key={idx}
+            onClick={() => setCurrentIndex(idx)}
+            className={`w-2 h-2 rounded-full transition-all duration-300 ${idx === currentIndex ? 'bg-[#06B6D4] shadow-[0_0_8px_#06B6D4]' : 'bg-white/20'}`}
+          />
+        ))}
       </div>
     </section>
   );

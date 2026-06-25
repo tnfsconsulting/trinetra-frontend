@@ -19,22 +19,25 @@ export default function TelemetrySection() {
   }, []);
 
   return (
-    <section className="relative z-10 py-24 bg-[#0a0e17] text-white border-y border-white/10">
-      <div className="max-w-7xl mx-auto px-8 md:px-20">
+    <section className="relative z-10 py-24 bg-transparent text-white border-y border-white/10 overflow-hidden">
+      <div className="absolute inset-0 bg-black/40 backdrop-blur-[2px] pointer-events-none"></div>
+      
+      <div className="max-w-7xl mx-auto px-8 md:px-20 relative z-10">
         <div className="text-center mb-16">
-          <p className="font-mono text-xs font-semibold uppercase tracking-[0.28em] text-cyan-400 mb-4">Mission Telemetry</p>
-          <h2 className="text-3xl md:text-5xl font-bold tracking-tight text-slate-100">
-            Engineered for <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-500">absolute scale.</span>
+          <p className="text-[10px] font-medium uppercase tracking-[0.3em] text-white/50 mb-4 inline-block border border-white/10 px-4 py-1.5 bg-white/5">Mission Telemetry</p>
+          <h2 className="text-3xl md:text-5xl font-light tracking-tight text-white uppercase">
+            Engineered for <span className="font-semibold">Absolute Scale</span>
           </h2>
         </div>
 
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-y-12 gap-x-8 md:divide-x divide-white/10">
+        {/* STATIC GRID LAYOUT */}
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-y-16 gap-x-8 md:divide-x divide-white/10">
           {stats.map((stat, i) => (
-            <div key={i} className="flex flex-col items-center justify-center text-center px-4">
-              <div className="text-4xl md:text-5xl font-light font-mono text-white mb-3 tracking-tight drop-shadow-[0_0_15px_rgba(34,211,238,0.3)]">
+            <div key={i} className="flex flex-col items-center justify-center text-center px-4 group">
+              <div className="text-4xl md:text-6xl font-light text-white mb-4 tracking-tighter transition-all duration-500 group-hover:scale-105 group-hover:text-[#06B6D4]">
                 {stat.value}
               </div>
-              <div className="text-xs md:text-sm font-semibold text-slate-500 uppercase tracking-widest font-mono">
+              <div className="text-[10px] md:text-xs font-medium text-white/40 uppercase tracking-[0.2em]">
                 {stat.label}
               </div>
             </div>
