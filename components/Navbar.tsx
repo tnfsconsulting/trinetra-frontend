@@ -9,16 +9,16 @@ export default function Navbar() {
 
   return (
     <header className="fixed top-0 left-0 w-full h-16 border-b border-white/10 bg-black/60 backdrop-blur-xl z-50 px-6 lg:px-12 flex items-center justify-between font-sans">
-      
+
       {/* 1. LOGO */}
       <Link href="/" className="flex items-center gap-3 relative z-50 group">
         {/* We can invert the logo if it's black text, or keep it if it's white. Assuming it looks okay, we'll keep the image but maybe add brightness/invert if needed. We'll use CSS filter invert if it was dark. */}
-        <Image 
-          src="/images/TNFS_NoBG.png" 
-          alt="TNFS Logo" 
-          width={48} 
-          height={48} 
-          className="w-10 h-10 object-contain scale-125 origin-left drop-shadow-[0_0_8px_rgba(255,255,255,0.3)] transition-transform group-hover:scale-[1.3]" 
+        <Image
+          src="/images/TNFS_NoBG.png"
+          alt="TNFS Logo"
+          width={48}
+          height={48}
+          className="w-10 h-10 object-contain scale-125 origin-left drop-shadow-[0_0_8px_rgba(255,255,255,0.3)] transition-transform group-hover:scale-[1.3]"
         />
         <span className="text-lg font-medium tracking-[0.2em] text-white ml-2 uppercase">Trinetra</span>
       </Link>

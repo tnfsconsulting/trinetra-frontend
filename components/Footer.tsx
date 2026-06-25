@@ -5,12 +5,12 @@ export default function Footer() {
   return (
     <footer className="relative z-10 w-full bg-black text-white/50 py-16 px-8 md:px-20 border-t border-white/10">
       <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10 lg:gap-8 mb-16">
-        
+
         {/* LOGO & BRIEF */}
         <div className="lg:col-span-2 space-y-6">
           <div className="flex items-center gap-3">
-            <Image src="/images/TNFS_NoBG.png" alt="TNFS Logo" width={80} height={80} className="w-20 h-20 object-contain scale-110 origin-left brightness-0 invert opacity-90" />
-            <span className="text-3xl font-light tracking-widest text-white ml-1">TNFS</span>
+            <Image src="/images/TNFS_NoBG.png" alt="TNFS Logo" width={80} height={80} className="w-20 h-20 object-contain scale-110 origin-left" />
+            <span className="text-3xl font-light tracking-widest text-white ml-1">TRINETRA</span>
           </div>
           <p className="text-[11px] uppercase tracking-[0.15em] text-white/40 max-w-xs leading-loose">
             Next-generation AI solutions engineered for strategic defense intelligence and scalable enterprise operations.
